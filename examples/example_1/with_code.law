@@ -1,0 +1,42 @@
+Demo 1 - Can a person read
+
+@define Person {
+  lives_in: text
+  age:      Age
+}
+
+@enum Age {
+  - young
+  - old
+}
+
+@inputs {
+  person: Person
+}
+
+@outputs {
+  can_read: condition
+}
+
+- (a) Ability to read based on location
+
+If a person lives in the United States, we can conclude that they can read.
+
+@code {
+  if person.lives_in = `UnitedStates` {
+    set can_read to true
+  }
+  else {
+    set can_read to false
+  }
+}
+
+- - (I) Ability to read based on age
+
+If a person is young, then they cannot read.
+
+@code {
+  if person.age = Age.young {
+    set can_read to false
+  }
+}

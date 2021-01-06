@@ -1,8 +1,8 @@
 § 121 - Exclusion of gain from sale of principal residence
 
 @meta {
-  short: Section 121. Exclusion of gain from sale of principal residence
-  path:  121
+  set short to `Section 121. Exclusion of gain from sale of principal residence`
+  set path  to `121`
 }
 
 @define Person {
@@ -28,24 +28,27 @@
 
 @inputs {
   taxpayer:                      Person
-  applicable:                    boolean
+  applicable:                    condition
   maximum_gain_excluded:         money
   gain_considered_for_exclusion: money
   sale_or_exchange:              SaleOrExchange 
-  included_in_gross_income:      boolean
-  joint_return:                  boolean
+  included_in_gross_income:      condition
+  joint_return:                  condition
   taxable_year:                  integer
-  joint_return:                  boolean
-  condition_b_2:                 boolean
+  joint_return:                  condition
+  condition_b_2:                 condition
 }
 
 @outputs {
-  excluded_from_gross: boolean
+  excluded_from_gross: condition
 }
 
-(a) Exclusion
+- (a) Exclusion
 
-Gross income shall not include gain from the sale or exchange of property if, during the 5-year period ending on the date of the sale or exchange, such property has been owned and used by the taxpayer as the taxpayer’s principal residence for periods aggregating 2 years or more.
+Gross income shall not include gain from the sale or exchange of property if,
+during the 5-year period ending on the date of the sale or exchange, such
+property has been owned and used by the taxpayer as the taxpayer’s principal
+residence for periods aggregating 2 years or more.
 
 @locals {
   time_as_principal_residence:     integer
@@ -53,7 +56,7 @@ Gross income shall not include gain from the sale or exchange of property if, du
   start_date_or_5_years_before:    date
 }
 
-@function {
+@code {
   # This is the sum of time that the taxpayer used the property as their
   # principal residence.
   set time_as_principal_residence to 0
@@ -95,20 +98,31 @@ Gross income shall not include gain from the sale or exchange of property if, du
   }
 }
 
-(b) Limitations
+- (b) Limitations
 
-- (1) In general
+- - (1) In general
 
-The amount of gain excluded from gross income under subsection (a) with respect to any sale or exchange shall not exceed $250,000.
+The amount of gain excluded from gross income under subsection (a) with respect
+to any sale or exchange shall not exceed $250,000.
 
-- (2) Special rules for joint returnsIn the case of a husband and wife who make a joint return for the taxable year of the sale or exchange of the property—
+- - (2) Special rules for joint returnsIn the case of a husband and wife who
+    make a joint return for the taxable year of the sale or exchange of the
+    property—
 
-- - (A) $500,000 Limitation for certain joint returnsParagraph (1) shall be applied by substituting “$500,000” for “$250,000” if—
+- - - (A) $500,000 Limitation for certain joint returnsParagraph (1) shall be
+      applied by substituting “$500,000” for “$250,000” if—
 
-(i) either spouse meets the ownership requirements of subsection (a) with respect to such property;
-(ii) both spouses meet the use requirements of subsection (a) with respect to such property; and
-(iii) neither spouse is ineligible for the benefits of subsection (a) with respect to such property by reason of paragraph (3).
+(i) either spouse meets the ownership requirements of subsection (a) with
+    respect to such property;
+(ii) both spouses meet the use requirements of subsection (a) with respect to
+    such property; and
+(iii) neither spouse is ineligible for the benefits of subsection (a) with
+    respect to such property by reason of paragraph (3).
 
-- - (B) Other joint returns
+- - - (B) Other joint returns
 
-If such spouses do not meet the requirements of subparagraph (A), the limitation under paragraph (1) shall be the sum of the limitations under paragraph (1) to which each spouse would be entitled if such spouses had not been married. For purposes of the preceding sentence, each spouse shall be treated as owning the property during the period that either spouse owned the property.
+If such spouses do not meet the requirements of subparagraph (A), the limitation
+under paragraph (1) shall be the sum of the limitations under paragraph (1) to
+which each spouse would be entitled if such spouses had not been married. For
+purposes of the preceding sentence, each spouse shall be treated as owning the
+property during the period that either spouse owned the property.

@@ -1,0 +1,189 @@
+{
+  "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+  "name": "PolicyScript",
+  "scopeName": "source.policyscript",
+  "patterns": [
+    { "include": "#blocks" },
+    { "include": "#comments" },
+    { "include": "#headers" },
+    { "include": "#text" },
+    { "include": "#initializers" }
+  ],
+  "repository": {
+    "assign": {
+      "match": "^\\s*(set)\\s+(?:([^\\s\\n]+)\\s+(to))?",
+      "captures": {
+        "1": {
+          "name": "storage.type.policyscript"
+        },
+        "2": {
+          "patterns": [{ "include": "#variables" }]
+        },
+        "3": {
+          "name": "keyword.operator.expression.to.policyscript"
+        }
+      }
+    },
+    "blocks": {
+      "name": "meta.block.policyscript",
+      "comment": "Blocks are any root level groups.",
+      "begin": "^(@(?:meta|define|enum|inputs|outputs|locals|code))\\s+(\\w*)\\s*(\\{)",
+      "end": "^\\}",
+      "beginCaptures": {
+        "1": {
+          "name": "keyword.operator.new.policyscript"
+        },
+        "2": {
+          "patterns": [
+            {
+              "name": "entity.name.type.policyscript",
+              "match": "\\b([A-Z][A-Za-z]*)\\b"
+            }
+          ]
+        },
+        "3": {
+          "name": "punctuation.section.block.policyscript"
+        }
+      },
+      "endCaptures": {
+        "0": {
+          "name": "punctuation.section.block.policyscript"
+        }
+      },
+      "patterns": [
+        { "include": "#assign" },
+        { "include": "#comments" },
+        { "include": "#for" },
+        { "include": "#keywords" },
+        { "include": "#operators" },
+        { "include": "#strings" },
+        { "include": "#types" },
+        { "include": "#variables" }
+      ]
+    },
+    "comments": {
+      "name": "comment.line.policyscript",
+      "comment": "Inline comments",
+      "begin": "#|//",
+      "end": "$\\n?",
+      "captures": {
+        "0": {
+          "name": "punctuation.definition.comment.policyscript"
+        }
+      }
+    },
+    "for": {
+      "match": "^\\s*(for)\\s+(?:([^\\s\\n]+)\\s+(in))?",
+      "captures": {
+        "1": {
+          "name": "keyword.control.loop.policyscript"
+        },
+        "2": {
+          "patterns": [{ "include": "#variables" }]
+        },
+        "3": {
+          "name": "keyword.operator.expression.in.policyscript"
+        }
+      }
+    },
+    "headers": {
+      "patterns": [
+        {
+          "name": "markup.heading.policyscript",
+          "match": "\\A(.+)$\\n?"
+        },
+        {
+          "name": "markup.heading.policyscript",
+          "begin": "^(?:-\\s)+.+(?:\\n.+)?",
+          "end": "^$"
+        }
+      ]
+    },
+    "text": {
+      "patterns": [
+        {
+          "name": "markup.italic.policyscript",
+          "match": "^(.+)"
+        }
+      ]
+    },
+    "keywords": {
+      "name": "keyword.control.conditional.policyscript",
+      "match": "\\b(if|else)\\b"
+    },
+    "operators": {
+      "patterns": [
+        {
+          "match": "\\>",
+          "name": "keyword.operator.policyscript"
+        },
+        {
+          "match": "\\<",
+          "name": "keyword.operator.policyscript"
+        },
+        {
+          "match": "\\>\\=",
+          "name": "keyword.operator.policyscript"
+        },
+        {
+          "match": "\\<\\=",
+          "name": "keyword.operator.policyscript"
+        },
+        {
+          "match": "\\=",
+          "name": "keyword.operator.policyscript"
+        },
+        {
+          "match": "\\!\\=",
+          "name": "keyword.operator.policyscript"
+        },
+        {
+          "match": "\\+",
+          "name": "keyword.operator.arithmetic.policyscript"
+        },
+        {
+          "match": "\\-",
+          "name": "keyword.operator.arithmetic.policyscript"
+        },
+        {
+          "match": "\\*",
+          "name": "keyword.operator.arithmetic.policyscript"
+        },
+        {
+          "match": "\\/",
+          "name": "keyword.operator.arithmetic.policyscript"
+        },
+        {
+          "match": "\\b(and|or|not)\\b",
+          "name": "keyword.operator.logical.policyscript"
+        },
+        {
+          "name": "keyword.operator.assignment.policyscript"
+        }
+      ]
+    },
+    "strings": {
+      "name": "string.quoted.double.policyscript",
+      "begin": "`",
+      "end": "`",
+      "patterns": [
+        {
+          "name": "constant.character.escape.policyscript",
+          "match": "\\\\."
+        }
+      ]
+    },
+    "types": {
+      "match": "^\\s*\\w+\\s*:\\s*((?:(?:[A-Z][A-Za-z]*)|text|date|time|period|condition|integer|decimal|money)(?:\\s+list)?)",
+      "captures": {
+        "1": {
+          "name": "entity.name.type.policyscript"
+        }
+      }
+    },
+    "variables": {
+      "name": "variable.other.constant.policyscript",
+      "match": "\\b([a-z0-9_]+)\\b"
+    }
+  }
+}
