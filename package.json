@@ -1,13 +1,28 @@
 {
-  "name": "policyscript",
+  "name": "vscode-policyscript",
   "displayName": "PolicyScript",
   "description": "Language support for PolicyScript.",
   "version": "0.0.1",
   "engines": {
     "vscode": "^1.52.0"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/policyscript/vscode-policyscript.git"
+  },
+  "bugs": {
+    "url": "https://github.com/policyscript/vscode-policyscript/issues"
+  },
   "categories": [
-    "Programming Languages"
+    "Programming Languages",
+    "Other",
+    "Formatters",
+    "Linters"
+  ],
+  "keywords": [
+    "law",
+    "policy",
+    "policyscript"
   ],
   "activationEvents": [
     "onLanguage:policyscript",
