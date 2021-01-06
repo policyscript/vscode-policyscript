@@ -55,6 +55,7 @@
         { "include": "#comments" },
         { "include": "#for" },
         { "include": "#keywords" },
+        { "include": "#literals" },
         { "include": "#operators" },
         { "include": "#strings" },
         { "include": "#types" },
@@ -173,13 +174,53 @@
         }
       ]
     },
-    "types": {
-      "match": "^\\s*\\w+\\s*:\\s*((?:(?:[A-Z][A-Za-z]*)|text|date|time|period|condition|integer|decimal|money)(?:\\s+list)?)",
-      "captures": {
-        "1": {
-          "name": "entity.name.type.policyscript"
+    "literals": {
+      "patterns": [
+        {
+          "name": "constant.numeric.integer.policyscript",
+          "match": "\\s\\b[0-9_]+\\b(?!(\\.|\\s+(days)))"
+        },
+        {
+          "name": "constant.numeric.decimal.policyscript",
+          "match": "\\s\\b[0-9_]+\\.[0-9]*\\b"
+        },
+        {
+          "name": "constant.numeric.money.policyscript",
+          "match": "\\s\\$\\b[0-9_]+\\.[0-9]*\\b"
+        },
+        {
+          "name": "constant.numeric.period.policyscript",
+          "match": "\\s\\b[0-9_]+\\s+(days)"
+        },
+        {
+          "name": "constant.language.boolean.policyscript",
+          "match": "\\b(true|false)\\b"
+        },
+        {
+          "name": "constant.language.date.policyscript",
+          "match": "\\|[0-9\\/]+\\|"
+        },
+        {
+          "name": "constant.language.time.policyscript",
+          "match": "\\|[0-9\\:]+\\|"
         }
-      }
+      ]
+    },
+    "types": {
+      "patterns": [
+        {
+          "match": "^\\s*\\w+\\s*:\\s*((?:(?:[A-Z][A-Za-z]*)|text|date|time|period|condition|integer|decimal|money)(?:\\s+list)?)",
+          "captures": {
+            "1": {
+              "name": "entity.name.type.policyscript"
+            }
+          }
+        },
+        {
+          "name": "entity.name.type.policyscript",
+          "match": "\\b[A-Z][A-Za-z]*\\b"
+        }
+      ]
     },
     "variables": {
       "name": "variable.other.constant.policyscript",

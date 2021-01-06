@@ -21,6 +21,20 @@ Demo 1 - Example of PolicyScript
 @meta {
   set short to `Section 121. Exclusion of gain from sale of principal residence`
   set path  to `121`
+
+  # Just to demonstrate all the type, here they all are as meta fields.
+  set text      to `Text example`
+  set date      to |2021/01/15|
+  set time      to |23:59:59|
+  set period    to 4 days
+  set condition to true
+  set integer   to 50_000_000
+  set decimal   to 24.48
+  set money     to $40.00
+  set text_list to {
+    - `list item 1`
+    - `list item 2`
+  }
 }
 
 # You can use `@define` to define local structures which contain fields.
@@ -152,5 +166,5 @@ However, if a person is young, they are unable to read.
   # In addition to these types, you can specify your own types using `@define`
   # or `@enum`. Also, you can have lists of any of the types above, or of any
   # custom types.
-  list_of_times: time list
+  list_of_times: text list
 }
