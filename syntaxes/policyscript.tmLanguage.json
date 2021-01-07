@@ -6,7 +6,7 @@
     { "include": "#blocks" },
     { "include": "#comments" },
     { "include": "#headers" },
-    { "include": "#text" },
+    { "include": "#paragraph" },
     { "include": "#initializers" }
   ],
   "repository": {
@@ -27,8 +27,8 @@
     "blocks": {
       "name": "meta.block.policyscript",
       "comment": "Blocks are any root level groups.",
-      "begin": "^(@(?:meta|define|enum|inputs|outputs|locals|code))\\s+(\\w*)\\s*(\\{)",
-      "end": "^\\}",
+      "begin": "^\\s*(@(?:meta|define|enum|inputs|outputs|locals|code))\\s+(\\w*)\\s*(\\{)",
+      "end": "^\\s*\\}",
       "beginCaptures": {
         "1": {
           "name": "keyword.operator.new.policyscript"
@@ -91,16 +91,17 @@
       "patterns": [
         {
           "name": "markup.heading.policyscript",
-          "match": "\\A(.+)$\\n?"
+          "begin": "\\A(.+)$\\n?",
+          "end": "^\\s*$"
         },
         {
           "name": "markup.heading.policyscript",
-          "begin": "^(?:-\\s)+.+(?:\\n.+)?",
-          "end": "^$"
+          "begin": "^\\s*(?:-\\s)+.+(?:\\n.+)?",
+          "end": "^\\s*$"
         }
       ]
     },
-    "text": {
+    "paragraph": {
       "patterns": [
         {
           "name": "markup.italic.policyscript",
