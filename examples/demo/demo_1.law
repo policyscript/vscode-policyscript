@@ -30,6 +30,7 @@ Demo 1 - Example of PolicyScript
   set condition to true
   set integer   to 50_000_000
   set decimal   to 24.48
+  set percent   to 55%
   set money     to $40.00
   set text_list to {
     - `list item 1`

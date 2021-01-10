@@ -1,29 +1,28 @@
-§ 121 - Exclusion of gain from sale of principal residence
-
-@meta {
-  set short to `Section 121. Exclusion of gain from sale of principal residence`
-  set path  to `121`
-}
+---
+title: `§ 121 - Exclusion of gain from sale of principal residence`
+short: `Section 121. Exclusion of gain from sale of principal residence`
+path:  `121`
+---
 
 @define Person {
   id: integer
 }
 
-@define PropertyOwnedPeriod {
+@define PropertyOccupied {
   occupant:   Person
   start_date: date
   end_date:   date
 }
 
 @define PropertySaleOrExchange {
-  occupants: PropertyOwnedPeriod list
+  occupants: PropertyOccupied list
   gain:      money
   date:      date
 }
 
 @inputs {
   taxpayer:         Person
-  sale_or_exchange: PropertySaleOrExchange 
+  sale_or_exchange: PropertySaleOrExchange
 }
 
 @outputs {
@@ -31,7 +30,7 @@
   total_gain_excluded_from_gross: money
 }
 
-- (a) Exclusion
+_ (a) Exclusion
 
 Gross income shall not include gain from the sale or exchange of property if,
 during the 5-year period ending on the date of the sale or exchange, such
@@ -53,44 +52,38 @@ residence for periods aggregating 2 years or more.
   set 5_years_before_sale_or_exchange to sale_or_exchange.date - 5 years
 
   # For each occupant:
-  for property_occupied in sale_or_exchange.occupants {
+  for property_occupied in sale_or_exchange.occupants:
 
     # Only add to time as principal resident if the owner is the occupant, and
     # if the end date is within 5 years (therefore the date range falls within
     # the last 5 years).
     if property_occupied.occupant = taxpayer and
-      property_occupied.end_date >= 5_years_before_sale_or_exchange {
+      property_occupied.end_date >= 5_years_before_sale_or_exchange:
 
       # If start date of ownage is prior to 5 years before sale or exchange,
       # then start counting at 5 years instead of start date.
-      if property_occupied.start_date < 5_years_before_sale_or_exchange {
+      if property_occupied.start_date < 5_years_before_sale_or_exchange:
         set start_date_or_5_years_before to 5_years_before_sale_or_exchange
-      }
 
       # Otherwise, start counting at the actual start date.
-      else {
+      else:
         set start_date_or_5_years_before to property_occupied.start_date
-      }
 
       # Add the difference between start and end to the principal residence sum.
       set time_as_principal_residence to time_as_principal_residence +
         (property_occupied.end_date - start_date_or_5_years_before)
-    }
-  }
 
   # If time as principal residence is greater than 2 years, we can exclude gain
   # from gross. We convert years to days since years are imprecise.
-  if time_as_principal_residence >= 730 days {
+  if time_as_principal_residence >= 730 days:
     set can_exclude_gain_from_gross to true
-  }
-  else {
+  else:
     set can_exclude_gain_from_gross to false
-  }
 }
 
-- (b) Limitations
+_ (b) Limitations
 
-- - (1) In general
+_ _ (1) In general
 
 The amount of gain excluded from gross income under subsection (a) with respect
 to any sale or exchange shall not exceed $250,000.
@@ -106,14 +99,11 @@ to any sale or exchange shall not exceed $250,000.
   set total_gain_excluded_from_gross to $0.00
 
   # If we are able to exclude gain from gross:
-  if can_exclude_gain_from_gross {
+  if can_exclude_gain_from_gross:
 
     # If gain is greater than maximum gain exclusion, cap it.
-    if sale_or_exchange.gain > maximum_gain_exclusion {
+    if sale_or_exchange.gain > maximum_gain_exclusion:
       set total_gain_excluded_from_gross to maximum_gain_exclusion
-    }
-    else {
+    else:
       set total_gain_excluded_from_gross to sale_or_exchange.gain
-    }
-  }
 }

@@ -1,29 +1,24 @@
 § 121 - Exclusion of gain from sale of principal residence
 
-@meta {
-  set short to `Section 121. Exclusion of gain from sale of principal residence`
-  set path  to `121`
-}
-
 @define Person {
   id: integer
 }
 
-@define PropertyOwnedPeriod {
+@define PropertyOccupied {
   occupant:   Person
   start_date: date
   end_date:   date
 }
 
 @define PropertySaleOrExchange {
-  occupants: PropertyOwnedPeriod list
+  occupants: PropertyOccupied list
   gain:      money
   date:      date
 }
 
 @inputs {
   taxpayer:         Person
-  sale_or_exchange: PropertySaleOrExchange 
+  sale_or_exchange: PropertySaleOrExchange
 }
 
 @outputs {
