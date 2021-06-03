@@ -1,9 +1,11 @@
-Demo 1 - Example of PolicyScript
+---
+title: `Demo 1 - Example of PolicyScript`
+---
 
 # Welcome to the PolicyScript demo. Everything proceeded by a `#` is a comment,
 # and will not appear on the published document (except for comments inside of
 # blocks, but we will get to that later). Comments should be capitalized, and
-# end with a period.
+# should end with a period if it is a sentence.
 
 # First, let's take a look at the available block initializers:
 # - @meta
@@ -33,9 +35,16 @@ Demo 1 - Example of PolicyScript
   set percent   to 55%
   set money     to $40.00
   set text_list to {
-    - `list item 1`
-    - `list item 2`
+    `list item 1`
+    `list item 2`
   }
+}
+
+# You can also create `@enum` to group a set of possibilities together. Here we
+# can see that the Age enum is either `young` or `old`.
+@enum Age {
+  - young
+  - old
 }
 
 # You can use `@define` to define local structures which contain fields.
@@ -43,8 +52,9 @@ Demo 1 - Example of PolicyScript
   
   # You can also add comments inside of blocks. These will be shown in the
   # published document, so they should include helpful descriptions of the code.
-  # For example, `is_alive` is a built-in type (`condition`) whereas `age` is
-  # a type we have defined ourselves below. Types will be discussed in more
+  
+  # Here, we see `is_alive` is a built-in type (`condition`) whereas `age` is
+  # a type we have defined ourselves above. Types will be discussed in more
   # detail at the bottom of the document, so look at those to see all available
   # built-in types.
   is_alive: condition
@@ -55,13 +65,6 @@ Demo 1 - Example of PolicyScript
 
   # This is a list of all the countries this person has lived in.
   countries_lived_in: text list
-}
-
-# You can also create `@enum` to group a set of possibilities together. Here we
-# can see that the Age enum is either `young` or `old`.
-@enum Age {
-  - young
-  - old
 }
 
 # `@inputs` defines the input values for this section of policy. In this example
@@ -83,7 +86,7 @@ Demo 1 - Example of PolicyScript
 # - `$5_000_000.00` is the same as `$5000000.00`.
 # - `70_000 days` is the same as `70000 days`.
 
-- (a) Ability to read
+_ (a) Ability to read
 
 # As you can see, sections are denoted by `- ` followed by anything you want.
 # For example, this could have been `- a. Ability to read`, the actual text does
@@ -102,30 +105,27 @@ If a person has lived in Canada, they are able to read.
 
   # `for <custom_name> in <list>` will go through every item in the list one by
   # one and then store that item in `custom_name` (in this case `country`).
-  for country in person.countries_lived_in {
+  for country in person.countries_lived_in:
 
     # We check if `country` is equal to `Canada`, and if so we set
     # `has_lived_in_canada` to true.
-    if country = `Canada` {
+    if country = `Canada`:
       set has_lived_in_canada to true
-    }
-  }
   
   # Now we can set the value of `can_read` to the value of `has_lived_in_canada`
   # since if `has_lived_in_canada` is true, so is `can_read`.
   set can_read to has_lived_in_canada
 }
 
-- - (I) Exceptions
+_ _ (I) Exceptions
 
 # Since exceptions is indented by 2, it will be within (a).
 
 However, if a person is young, they are unable to read.
 
 @code {
-  if person.age = Age.young {
+  if person.age = Age.young:
     set can_read to false
-  }
 }
 
 # That's it for the legal code! The document is processed top to bottom, so
@@ -139,10 +139,10 @@ However, if a person is young, they are unable to read.
   # `That's what he said: "hello"`.
   text_value: text
 
-  # Dates represent a year, month, and day. They are in the form yyyy/mm/dd.
+  # Dates represent a year, month, and day. They are in the form |yyyy/mm/dd|.
   date_value: date
 
-  # Times represents a 24-hour time specific to seconds in the form hh:mm:ss.
+  # Times represents a 24-hour time specific to seconds in the form |hh:mm:ss|.
   time_value: time
 
   # Periods are a range of time. This can be specified as an integer followed by
