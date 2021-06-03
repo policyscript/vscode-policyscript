@@ -1,4 +1,6 @@
 # PolicyScript
 
-- Research paper: https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3088206
-- Catala: https://github.com/CatalaLang/catala
+The VSCode plugin for [PolicyScript](https://github.com/policyscript/policyscript).
+
+- provides syntax highlighting for .law files
+- TODO: language server for PolicyScript
